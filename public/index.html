@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>README Prompt Builder</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="./css/styles.css" />
+</head>
+
+<body>
+  <div class="container py-4">
+    <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-2">
+      <h1 class="h4 m-0">README Prompt Builder <span class="badge text-bg-light border">local</span></h1>
+      <button class="btn btn-outline-danger btn-sm" id="resetBtn">Reset to defaults</button>
+    </div>
+
+    <p class="text-secondary mb-3">
+      Build your README request prompt fast. Controls on the left, preview + actions always visible on the right.
+    </p>
+
+    <div class="row g-3 align-items-start">
+      <!-- LEFT: Controls (Accordions) -->
+      <div class="col-12 col-lg-6">
+        <div class="accordion" id="controlsAccordion">
+
+          <!-- Basics -->
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingBasics">
+              <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseBasics"
+                aria-expanded="true" aria-controls="collapseBasics">
+                Basics
+              </button>
+            </h2>
+            <div id="collapseBasics" class="accordion-collapse collapse show" aria-labelledby="headingBasics"
+              data-bs-parent="#controlsAccordion">
+              <div class="accordion-body">
+                <div class="row g-3">
+                  <div class="col-12 col-md-6">
+                    <label class="form-label text-secondary">Output filename</label>
+                    <select id="filenamePreset" class="form-select mb-2">
+                      <option value="">(custom)</option>
+                      <option>README.md</option>
+                      <option>PROJECT.md</option>
+                      <option>API-SERVER-ROUTES.md</option>
+                      <option>EXPRESS-SERVER-INSTALL.md</option>
+                      <option>FANTASY-FORGE.md</option>
+                    </select>
+                    <input id="filename" class="form-control" type="text" value="PROJECT-NAME.md" />
+                  </div>
+
+                  <div class="col-12 col-md-6">
+                    <label class="form-label text-secondary">Project name (optional)</label>
+                    <input id="projectName" class="form-control" type="text" placeholder="Fantasy Forge" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Content -->
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingContent">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#collapseContent" aria-expanded="false" aria-controls="collapseContent">
+                Content options
+              </button>
+            </h2>
+            <div id="collapseContent" class="accordion-collapse collapse" aria-labelledby="headingContent"
+              data-bs-parent="#controlsAccordion">
+              <div class="accordion-body">
+                <div class="row g-3">
+                  <div class="col-12 col-md-6">
+                    <div class="mb-2 text-secondary">Code source</div>
+
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="codeSource" id="codeBelow" value="below"
+                        checked>
+                      <label class="form-check-label" for="codeBelow">Code provided below</label>
+                    </div>
+
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="codeSource" id="codeAttached" value="attached">
+                      <label class="form-check-label" for="codeAttached">Code in the attached file(s)</label>
+                    </div>
+                  </div>
+
+                  <div class="col-12 col-md-6">
+                    <div class="mb-2 text-secondary">Section set</div>
+
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="sectionSet" id="sectionsStandard"
+                        value="standard" checked>
+                      <label class="form-check-label" for="sectionsStandard">Standard</label>
+                    </div>
+
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="sectionSet" id="sectionsQuick" value="quick">
+                      <label class="form-check-label" for="sectionsQuick">Quick</label>
+                    </div>
+
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="sectionSet" id="sectionsFull" value="full">
+                      <label class="form-check-label" for="sectionsFull">Full</label>
+                    </div>
+
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="sectionSet" id="sectionsPortfolio"
+                        value="portfolio">
+                      <label class="form-check-label" for="sectionsPortfolio">Portfolio</label>
+                    </div>
+                  </div>
+                </div>
+
+                <hr class="my-3" />
+
+                <div class="d-flex flex-wrap gap-2">
+                  <button class="btn btn-outline-secondary btn-sm" id="presetQuick">Quick preset</button>
+                  <button class="btn btn-outline-secondary btn-sm" id="presetFull">Full preset</button>
+                  <button class="btn btn-outline-secondary btn-sm" id="presetPortfolio">Portfolio preset</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Add-ons -->
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingAddons">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#collapseAddons" aria-expanded="false" aria-controls="collapseAddons">
+                Optional additions
+              </button>
+            </h2>
+            <div id="collapseAddons" class="accordion-collapse collapse" aria-labelledby="headingAddons"
+              data-bs-parent="#controlsAccordion">
+              <div class="accordion-body">
+                <div id="options"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Rules -->
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingRules">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#collapseRules" aria-expanded="false" aria-controls="collapseRules">
+                Rules
+              </button>
+            </h2>
+            <div id="collapseRules" class="accordion-collapse collapse" aria-labelledby="headingRules"
+              data-bs-parent="#controlsAccordion">
+              <div class="accordion-body">
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="avoidBadges" checked>
+                  <label class="form-check-label" for="avoidBadges">Avoid badges unless requested</label>
+                </div>
+
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="avoidScreenshots" checked>
+                  <label class="form-check-label" for="avoidScreenshots">Avoid screenshots unless requested</label>
+                </div>
+
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="avoidLinks" checked>
+                  <label class="form-check-label" for="avoidLinks">Avoid external links unless requested</label>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Notes -->
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingNotes">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#collapseNotes" aria-expanded="false" aria-controls="collapseNotes">
+                Extra notes
+              </button>
+            </h2>
+            <div id="collapseNotes" class="accordion-collapse collapse" aria-labelledby="headingNotes"
+              data-bs-parent="#controlsAccordion">
+              <div class="accordion-body">
+                <label class="form-label text-secondary">Extra custom notes (optional)</label>
+                <textarea id="extraNotes" class="form-control mono" rows="4"></textarea>
+              </div>
+            </div>
+          </div>
+
+          <!-- Base Prompt -->
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingPrompt">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#collapsePrompt" aria-expanded="false" aria-controls="collapsePrompt">
+                Base prompt
+              </button>
+            </h2>
+            <div id="collapsePrompt" class="accordion-collapse collapse" aria-labelledby="headingPrompt"
+              data-bs-parent="#controlsAccordion">
+              <div class="accordion-body">
+                <label class="form-label text-secondary">Base prompt (editable)</label>
+                <textarea id="basePrompt" class="form-control mono" rows="7"></textarea>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- RIGHT: Sticky Preview + Actions -->
+      <div class="col-12 col-lg-6">
+        <div class="position-sticky sticky-preview">
+          <div class="card shadow-sm">
+            <div class="card-body">
+              <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-2">
+                <div class="text-secondary">Preview</div>
+                <button class="btn btn-outline-secondary btn-sm" id="rebuildBtn" type="button">Rebuild</button>
+              </div>
+
+              <div class="d-flex flex-wrap gap-2 mb-2">
+                <button class="btn btn-primary" id="copyBtn">Send to clipboard</button>
+                <button class="btn btn-outline-primary" id="openBtn">Send to ChatGPT</button>
+              </div>
+
+              <textarea id="preview" class="form-control mono" rows="14" readonly></textarea>
+
+              <!-- <div class="small text-secondary mt-2">
+                Tip: keep this panel visible while you tweak settings on the left.
+              </div> -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="./js/index.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

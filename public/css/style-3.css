@@ -1,0 +1,4 @@
+/* Keep CSS light since Bootstrap does most of the work */
+.mono {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}

@@ -1,0 +1,15 @@
+.mono {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+
+/* keeps the preview panel comfortably below the top edge */
+.sticky-preview {
+  top: 1rem;
+}
+
+/* on tall screens, give the preview more usable space without forcing page scroll */
+@media (min-width: 992px) {
+  #preview {
+    height: 62vh;
+  }
+}
