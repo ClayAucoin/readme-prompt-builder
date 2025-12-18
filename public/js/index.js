@@ -1,3 +1,5 @@
+// public/js/index.js
+
 const STORAGE_KEY = "readmePromptBuilder.noDirs.v1";
 
 const baseDefault =
